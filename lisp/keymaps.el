@@ -164,6 +164,10 @@
   ;; -------------------------------
   (with-eval-after-load 'org
     (evil-define-key '(normal visual) org-mode-map
+      (kbd "<leader> m x c") 'org-toggle-checkbox
+      (kbd "<leader> m x i") 'org-toggle-item
+      (kbd "<leader> m x h") 'org-toggle-heading
+
       (kbd "<leader> m t t") 'org-todo
       (kbd "<leader> m t s") 'org-schedule
       (kbd "<leader> m t d") 'org-deadline
