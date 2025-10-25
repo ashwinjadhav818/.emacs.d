@@ -1,40 +1,35 @@
 ;;; themes.el --- Theme configuration -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; Theme setup for Emacs, including Catppuccin and Tokyo theme.
+;; Theme setup for Emacs, including Doom Opera and Modus themes.
 
 ;;; Code:
 
 ;; -------------------------------
-;; Catppuccin Theme
+;; Doom Themes (Doom Opera as default)
 ;; -------------------------------
-(use-package catppuccin-theme
+(use-package doom-themes
   :ensure t
-  :straight t
-  :config
-  (custom-set-faces
-   ;; Diff-hl colors
-   `(diff-hl-change ((t (:background unspecified :foreground ,(catppuccin-get-color 'blue)))))
-   `(diff-hl-delete ((t (:background unspecified :foreground ,(catppuccin-get-color 'red)))))
-   `(diff-hl-insert ((t (:background unspecified :foreground ,(catppuccin-get-color 'green))))))
-
-  ;; Load Catppuccin theme by default
-  (load-theme 'catppuccin :no-confirm))
+  :init
+  ;; Load Doom Opera theme by default
+  (load-theme 'doom-opera :no-confirm)
+  )
 
 ;; -------------------------------
-;; Tokyo Theme (extra theme option)
+;; Modus Themes (optional fallback)
 ;; -------------------------------
-(use-package tokyo-theme
-  :straight (tokyo-theme
-             :type git
-             :host github
-             :repo "rawleyfowler/tokyo-theme.el"
-             :branch "main")
-  :config
-  ;; Uncomment this if you want Tokyo as default instead:
-  ;; (load-theme 'tokyo t)
+(use-package modus-themes
+  :ensure t
+  ;; You can switch to Modus with: (load-theme 'modus-vivendi :no-confirm)
+  )
+
+;; -------------------------------
+;; Nord Theme (optional fallback)
+;; -------------------------------
+(use-package nord-theme
+  :ensure t
+  ;; You can switch to Nord with: (load-theme 'nord :no-confirm)
   )
 
 (provide 'themes)
 ;;; themes.el ends here
-
