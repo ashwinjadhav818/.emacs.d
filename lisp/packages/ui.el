@@ -163,8 +163,9 @@
   (centaur-tabs-mode t)
 
   ;; Style and markers
-  (setq centaur-tabs-style "wave")
-  (setq centaur-tabs-set-bar 'over)
+  (setq centaur-tabs-style "zigzag")
+  (setq centaur-tabs-set-bar 'under)
+  (setq x-underline-at-descent-line t)
   (setq centaur-tabs-modified-marker "*")
 
   ;; Enable icons
