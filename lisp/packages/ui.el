@@ -185,8 +185,8 @@
 
 
   :bind
-  ("C-<tab>"   . centaur-tabs-forward)
-  ("C-S-<tab>" . centaur-tabs-backward))
+  ("C-<tab>"   . centaur-tabs-forward-tab)
+  ("C-S-<tab>" . centaur-tabs-backward-tab))
 
 ;;; DASHBOARD
 ;; An extensible emacs startup screen showing you what’s most important.

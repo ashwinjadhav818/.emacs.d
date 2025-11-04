@@ -17,15 +17,17 @@
   (org-modern-ellipsis " ? "))
 
 ;; Pretty bullets
-(use-package org-bullets
-  :ensure t
-  :hook (org-mode . org-bullets-mode))
+(use-package org-bullets-mode
+  :ensure org-bullets
+  :config
+  :hook org-mode)
 
 ;; Indentation and bullets (pretty indentation lines)
 (use-package org-modern-indent
   :straight (org-modern-indent :type git :host github :repo "jdtsmith/org-modern-indent")
-  :after org-modern
-  :hook (org-mode . org-modern-indent-mode))
+  :hook
+  (org-mode . org-modern-mode)
+  (org-agenda-finalize . org-modern-agenda))
 
 ;; Enable number line even with org-indent
 (add-hook 'org-mode-hook

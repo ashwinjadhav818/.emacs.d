@@ -6,29 +6,19 @@
 ;;; Code:
 
 ;; -------------------------------
-;; Doom Themes (Doom Opera as default)
-;; -------------------------------
-(use-package doom-themes
-  :ensure t
-  :init
-  ;; Load Doom Opera theme by default
-  (load-theme 'doom-opera :no-confirm)
-  )
-
-;; -------------------------------
-;; Modus Themes (optional fallback)
+;; Modus Themes
 ;; -------------------------------
 (use-package modus-themes
   :ensure t
-  ;; You can switch to Modus with: (load-theme 'modus-vivendi :no-confirm)
+  :config
+  (load-theme 'modus-vivendi t)
   )
 
 ;; -------------------------------
-;; Nord Theme (optional fallback)
+;; Nord Theme
 ;; -------------------------------
 (use-package nord-theme
   :ensure t
-  ;; You can switch to Nord with: (load-theme 'nord :no-confirm)
   )
 
 (provide 'themes)

@@ -32,8 +32,25 @@
 (require 'org-config)   ;; org + org-roam
 (require 'org-appearance) ;; org visuals (org-modern, bullets, etc.)
 (require 'programming)  ;; prog-mode, lsp, treesit, etc.
-(require 'themes)       ;; theme setup
 (require 'ui)           ;; UI elements (modeline, dashboard, etc.)
+(require 'themes)       ;; theme setup
 
 (provide 'init)
 ;;; init.el ends here
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("74ba8278e74fbd0826b137f3589500a830b91eb8911a8873f10a2857fc406eda"
+	 "cfc1e49eec0d57e2f70ef3a6db3b543bbb2edcf16a9f164231afcc4d1263f9fb"
+	 "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
+	 default)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
