@@ -41,7 +41,7 @@
   (setq switch-to-prev-buffer-skip 'skip-these-buffers)
 
 
-  (set-face-attribute 'default nil :family "Maple Mono"  :height 125))
+  (set-face-attribute 'default nil :family "Sauce Code Pro Nerd Font"  :height 125))
 
   ;; Makes Emacs vertical divisor the symbol │ instead of |.
   (set-display-table-slot standard-display-table 'vertical-border (make-glyph-code ?│))

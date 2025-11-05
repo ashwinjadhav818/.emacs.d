@@ -114,28 +114,6 @@
   (add-to-list 'pulsar-pulse-functions 'diff-hl-next-hunk)
   (add-to-list 'pulsar-pulse-functions 'diff-hl-previous-hunk))
 
-
-;;; DOOM MODELINE
-;; The `doom-modeline' package provides a sleek, modern mode-line that is visually appealing
-;; and functional. It integrates well with various Emacs features, enhancing the overall user
-;; experience by displaying relevant information in a compact format.
-(use-package doom-modeline
-  :ensure t
-  :straight t
-  :defer t
-  :custom
-  (doom-modeline-buffer-file-name-style 'buffer-name)  ;; Set the buffer file name style to just the buffer name (without path).
-  (doom-modeline-project-detection 'project)           ;; Enable project detection for displaying the project name.
-  (doom-modeline-buffer-name t)                        ;; Show the buffer name in the mode line.
-  (doom-modeline-vcs-max-length 25)                    ;; Limit the version control system (VCS) branch name length to 25 characters.
-  :config
-  (if ek-use-nerd-fonts                                ;; Check if nerd fonts are being used.
-      (setq doom-modeline-icon t)                      ;; Enable icons in the mode line if nerd fonts are used.
-    (setq doom-modeline-icon nil))                     ;; Disable icons if nerd fonts are not being used.
-  :hook
-  (after-init . doom-modeline-mode))
-
-
 ;;; NEOTREE
 ;; The `neotree' package provides a file tree explorer for Emacs, allowing easy navigation
 ;; through directories and files. It presents a visual representation of the file system
@@ -152,41 +130,6 @@
   (if ek-use-nerd-fonts                    ;; Check if nerd fonts are being used.
       (setq neo-theme 'nerd-icons)         ;; Set the theme to 'nerd-icons' if nerd fonts are available.
     (setq neo-theme 'nerd)))               ;; Otherwise, fall back to the 'nerd' theme.
-
-;;; CENTUAR TABS
-;; The `centuar-tabs` package provides a sleek and modern tab bar
-(use-package centaur-tabs
-  :straight t
-  :defer nil
-  :config
-  ;; Enable the tab bar
-  (centaur-tabs-mode t)
-
-  ;; Style and markers
-  (setq centaur-tabs-style "zigzag")
-  (setq centaur-tabs-set-bar 'under)
-  (setq x-underline-at-descent-line t)
-  (setq centaur-tabs-modified-marker "*")
-
-  ;; Enable icons
-  (setq centaur-tabs-set-icons t)
-  (setq centaur-tabs-icon-type 'nerd-icons)
-
-  ;; Grouping behavior
-  (setq centaur-tabs-group-by-projectile-project t)
-  (setq centaur-tabs-headline-match t)
-
-  "Hide centaur-tabs in the *dashboard* buffer."
-  (defun my/dashboard-hide-tabs ()
-  (when (string= (buffer-name) "*dashboard*")
-    (centaur-tabs-local-mode t)))
-
-  (add-hook 'dashboard-mode-hook #'my/dashboard-hide-tabs)
-
-
-  :bind
-  ("C-<tab>"   . centaur-tabs-forward-tab)
-  ("C-S-<tab>" . centaur-tabs-backward-tab))
 
 ;;; DASHBOARD
 ;; An extensible emacs startup screen showing you what’s most important.
@@ -248,5 +191,15 @@
   :config
   (nerd-icons-completion-mode)            ;; Activate nerd icons for completion interfaces.
   (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup)) ;; Setup icons in the marginalia mode for enhanced completion display.
+
+;; ULTRA SCROLL
+;; The `ultra-scroll' package adds smooth scrolling to emacs
+(use-package ultra-scroll
+  :ensure t
+  :init
+  :defer 20
+  :config
+  (ultra-scroll-mode +1))
+
 
 (provide 'ui)
