@@ -6,12 +6,19 @@
 ;;; Code:
 
 ;; -------------------------------
+;; Minimal Themes
+;; -------------------------------
+(use-package minimal-theme
+  :straight (minimal-theme :type git :host github :repo "ashwinjadhav818/emacs-minimal-theme")
+  :config
+  (load-theme 'minimal-black t))
+
+
+;; -------------------------------
 ;; Modus Themes
 ;; -------------------------------
 (use-package modus-themes
   :ensure t
-  :config
-  (load-theme 'modus-vivendi t)
   )
 
 ;; -------------------------------
