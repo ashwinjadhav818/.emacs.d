@@ -61,12 +61,39 @@
 ;; -------------------------------
 ;; DOOM-STYLE LEADER KEYBINDINGS
 ;; -------------------------------
-(defun open-personal-config ()
-  "Fuzzy search and open a file in `~/.emacs.d`."
+(defun fuzzy-find-files-in-directory ()
+  "Fuzzy find files in the current directory."
+  (interactive)
   (interactive)
   (find-file
-   (completing-read "Find config file: "
-                    (directory-files-recursively "~/.emacs.d" "\\.el$"))))
+   (completing-read "Find org file: "
+                    (directory-files-recursively "." ".*"))))
+
+(defun grep-current-directory ()
+  "Run ripgrep in the current directory."
+  (interactive)
+  (let ((default-directory (if (derived-mode-p 'dired-mode)
+                               (dired-dwim-target-directory)
+                             default-directory)))
+    (consult-ripgrep default-directory)))
+
+(defun open-personal-config ()
+  "Fuzzy search and open a file in `~/.emacs.d`, ignoring specified folders."
+  (interactive)
+  (let* ((config-dir "~/.emacs.d")
+         ;; Get all .el files, excluding specified directories
+         (all-files (directory-files-recursively
+                      config-dir "\\.el$"
+                      nil ;; No depth limit
+                      (lambda (file)
+                        (not (or (string-match-p "/elpa/" file)      ; Ignore elpa/
+                                 (string-match-p "/straight/" file)  ; Ignore straight/
+                                 (string-match-p "/server/" file)    ; Ignore server/
+                                 )))))
+    ;; Fuzzy find and open the file
+    (selected-file (completing-read "Find config file: " all-files)))
+    (find-file selected-file)))
+
 
 (defun org-find-file ()
   "Fuzzy search and open a file in `org-directory`."
@@ -85,7 +112,9 @@
   ;; FILES
   ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader> SPC") 'fuzzy-find-files-in-directory)
   (evil-define-key 'normal 'global (kbd "<leader> f f") 'find-file)
+  (evil-define-key 'normal 'global (kbd "<leader> f g") 'grep-current-directory)
   (evil-define-key 'normal 'global (kbd "<leader> f r") 'recentf-open-files)
   (evil-define-key 'normal 'global (kbd "<leader> f d") 'dired)
   (evil-define-key 'normal 'global (kbd "<leader> f p") 'open-personal-config)
