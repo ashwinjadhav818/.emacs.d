@@ -17,7 +17,8 @@
 
   (setq org-agenda-files (list
                         "~/org/inbox.org"
-                        "~/org/calendar.org"
+                        "~/org/personal.org"
+                        "~/org/school.org"
                         "~/org/studies.org"))
   
   ;; TODO keywords
