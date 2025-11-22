@@ -8,8 +8,9 @@
 ;; -------------------------------
 ;; ORG-MODE
 ;; -------------------------------
+(straight-use-package 'org)
+
 (use-package org
-  :ensure nil   ;; built-in
   :defer t)
 
 (with-eval-after-load 'org
@@ -45,7 +46,10 @@
           ("n" "Note" entry
            (file+headline "~/org/notes.org" "Inbox")
            "* [%<%Y-%m-%d %a>] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?"
-           :prepend t))))
+           :prepend t)))
+
+  (setq org-clock-persist 'history)
+  (org-clock-persistence-insinuate))
 
 
 ;; -------------------------------
@@ -66,6 +70,43 @@
 
   ;; Optional: org-roam-protocol
   (require 'org-roam-protocol))
+
+
+;; -------------------------------
+;; ORG-POMODORO
+;; -------------------------------
+(use-package org-pomodoro
+  :ensure t
+  :config
+  (setq org-pomodoro-length 50)
+  (setq org-pomodoro-short-break-length 10)
+  (setq org-pomodoro-long-break-length 30))
+
+;; -------------------------------
+;; HELPER FUNCTIONS
+;; -------------------------------
+(defun my/org-clock-get-time-string ()
+  "Return the currently clocked time as a string (e.g. \"1:23\").
+Returns an empty string if no clock is running."
+  (let ((m (org-clock-get-clocked-time)))
+    (if (and m (> m 0))
+        (org-minutes-to-clocksum-string m)
+      "")))
+
+(defun my/remove-properties (s)
+  (substring-no-properties s))
+
+(defun my/org-clock-task-and-time ()
+  (if (org-clocking-p)
+      (let* ((task (or org-clock-current-task ""))
+             (short (if (> (length task) 20)
+                        (concat (substring task 0 20) "...")
+                      task)))
+        (substring-no-properties
+         (format "%s - %s"
+                 short
+                 (my/org-clock-get-time-string))))
+    ""))
 
 (provide 'org-config)
 ;;; org-config.el ends here
