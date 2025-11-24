@@ -1,6 +1,9 @@
 #+TITLE: ashwin's emacs config
 #+OPTIONS: toc:2 num:nil
 
+[[./assets/img1.png]]        [[./assets/img2.png]]
+[[./assets/img3.png]] 
+
 * Overview
 This repository contains my personal Emacs configuration.  
 It is mainly focused on Org-mode and Org-roam functionality. It is structured for readability and modularity, and it is managed as a subdirectory of my larger =dotfiles= repo.
