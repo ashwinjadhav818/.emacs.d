@@ -103,9 +103,9 @@ Returns an empty string if no clock is running."
                         (concat (substring task 0 20) "...")
                       task)))
         (substring-no-properties
-         (format "%s - %s"
-                 short
-                 (my/org-clock-get-time-string))))
+         (format "[%s]  (%s)"
+                 (my/org-clock-get-time-string)
+				 short)))
     ""))
 
 (provide 'org-config)
