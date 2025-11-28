@@ -228,14 +228,38 @@
   ("C-S-<tab>" . centaur-tabs-backward))
 
 
-;; ULTRA SCROLL
-;; The `ultra-scroll' package adds smooth scrolling to emacs
-(use-package ultra-scroll
-  :ensure t
-  :init
-  :defer 20
+;;; CENTERed-CURSOR-MODE
+;; The `centered-cursor-mode` package is a built-in Emacs minor mode (available in Emacs 26.1+)
+;; that automatically keeps the cursor vertically centered in the window when the buffer is
+;; scrolled. This helps maintain focus by preventing the current line from hitting the top
+;; or bottom of the screen before a scroll occurs. You can also achieve this with the manual
+;; recenter command (C-l).
+(use-package centered-cursor-mode
+  :demand
   :config
-  (ultra-scroll-mode +1))
+  (global-centered-cursor-mode))
 
+;;; PERFECT-MARGIN
+;; The `perfect-margin` package provides a system for automatically calculating and enforcing
+;; optimal window margins. This is often used to keep text centered horizontally and limit
+;; the line width to a readable size (like 80 or 120 characters), improving readability
+;; and focus, especially on wide screens.
+(use-package perfect-margin
+  :custom
+  (perfect-margin-visible-width 128)
+  :config
+  ;; enable perfect-mode
+  (perfect-margin-mode t)
+  ;; auto-center minibuffer windows
+  (setq perfect-margin-ignore-filters nil)
+  ;; auto-center special windows
+  (setq perfect-margin-ignore-regexps nil)
+  ;; add additinal bding on margin area
+  (dolist (margin '("<left-margin> " "<right-margin> "))
+	(global-set-key (kbd (concat margin "<mouse-1>")) 'ignore)
+	(global-set-key (kbd (concat margin "<mouse-3>")) 'ignore)
+	(dolist (multiple '("" "double-" "triple-"))
+	  (global-set-key (kbd (concat margin "<" multiple "wheel-up>")) 'mwheel-scroll)
+	  (global-set-key (kbd (concat margin "<" multiple "wheel-down>")) 'mwheel-scroll))))
 
 (provide 'ui)
