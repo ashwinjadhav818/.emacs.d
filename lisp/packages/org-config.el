@@ -99,8 +99,8 @@ Returns an empty string if no clock is running."
 (defun my/org-clock-task-and-time ()
   (if (org-clocking-p)
       (let* ((task (or org-clock-current-task ""))
-             (short (if (> (length task) 20)
-                        (concat (substring task 0 20) "...")
+             (short (if (> (length task) 40)
+                        (concat (substring task 0 40) "...")
                       task)))
         (substring-no-properties
          (format "[%s]  (%s)"
