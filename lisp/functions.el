@@ -49,4 +49,73 @@
   (let ((org-refile-targets '((nil :maxlevel . 3))))
     (org-refile)))
 
+
+(defun org-lap--find-drawer (name)
+  (save-excursion
+    (org-back-to-heading t)
+    (let ((end (save-excursion (outline-next-heading) (point)))
+          found)
+      (while (re-search-forward (format ":%s:" name) end t)
+        (when (org-at-drawer-p)
+          (setq found (match-beginning 0))
+          (setq end (point-max)))) ;; halt search
+      found)))
+
+;; ORG-LAP-TIMER
+;; This function creates a record of laps inside a org-task
+(defun org-lap-timer ()
+  (interactive)
+  (unless (eq major-mode 'org-mode)
+    (user-error "Not in an org buffer"))
+
+  (let* ((title (nth 4 (org-heading-components)))
+         (start (current-time))
+         (last (current-time))
+         (laps '()))
+
+    (message "SPACE = lap | C-g = finish for: %s" title)
+
+    (catch 'done
+      (while t
+        (let ((key (read-key)))
+          (cond
+           ((eq key ?\s)
+            (let* ((now (current-time))
+                   (diff (float-time (time-subtract now last))))
+              (setq last now)
+              (push diff laps)
+              (message "%s | Lap: %.3f sec" title diff)))
+           ((eq key ?\C-g)
+            (throw 'done t))))))
+
+    (save-excursion
+      (org-back-to-heading t)
+
+      ;; Find LAPBOOK drawer manually
+      (let ((drawer-pos (org-lap--find-drawer "LAPBOOK")))
+        (if drawer-pos
+            ;; Go to the :END: of existing drawer
+            (progn
+              (goto-char drawer-pos)
+              (re-search-forward ":END:")
+              (forward-line 0))
+          ;; Create new drawer
+          (progn
+            (org-end-of-meta-data)
+            (insert ":LAPBOOK:\n:END:\n")
+            (forward-line -1))))
+
+      ;; Insert session data
+      (insert
+       (format "  - Lap Timer [%s]\n"
+               (format-time-string "%Y-%m-%d %H:%M")))
+      (insert
+       (format "    - Total: %.3f sec\n"
+               (float-time (time-subtract last start))))
+      (dolist (l (reverse laps))
+        (insert (format "    - Lap: %.3f sec\n" l))))
+
+    (message "Saved in LAPBOOK for: %s" title)))
+
+
 (provide 'functions)
