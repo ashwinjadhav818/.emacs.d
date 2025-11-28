@@ -10,6 +10,7 @@ places
 recentf
 savehist
 org-roam.db
+org-clock-save.el
 
 # ----------------------------------------
 # Emacs package managers
@@ -34,6 +35,7 @@ transient/
 image-dired/
 eshell/
 tramp/
+tree-sitter/
 gnus.el
 custom-vars.el
 secrets.el
