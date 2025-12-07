@@ -114,6 +114,26 @@
   (add-to-list 'pulsar-pulse-functions 'diff-hl-next-hunk)
   (add-to-list 'pulsar-pulse-functions 'diff-hl-previous-hunk))
 
+;;; DOOM MODELINE
+;; The `doom-modeline' package provides a sleek, modern mode-line that is visually appealing
+;; and functional. It integrates well with various Emacs features, enhancing the overall user
+;; experience by displaying relevant information in a compact format.
+(use-package doom-modeline
+  :ensure t
+  :straight t
+  :defer t
+  :custom
+  (doom-modeline-buffer-file-name-style 'buffer-name)  ;; Set the buffer file name style to just the buffer name (without path).
+  (doom-modeline-project-detection 'project)           ;; Enable project detection for displaying the project name.
+  (doom-modeline-buffer-name t)                        ;; Show the buffer name in the mode line.
+  (doom-modeline-vcs-max-length 25)                    ;; Limit the version control system (VCS) branch name length to 25 characters.
+  :config
+  (if ek-use-nerd-fonts                                ;; Check if nerd fonts are being used.
+      (setq doom-modeline-icon t)                      ;; Enable icons in the mode line if nerd fonts are used.
+    (setq doom-modeline-icon nil))                     ;; Disable icons if nerd fonts are not being used.
+  :hook
+  (after-init . doom-modeline-mode))
+
 ;;; NEOTREE
 ;; The `neotree' package provides a file tree explorer for Emacs, allowing easy navigation
 ;; through directories and files. It presents a visual representation of the file system
