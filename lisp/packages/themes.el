@@ -6,27 +6,27 @@
 ;;; Code:
 
 ;; -------------------------------
+;; Doom Themes
+;; -------------------------------
+(use-package doom-themes
+  :ensure t
+  :config
+;  (load-theme 'doom-tokyo-night t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (nerd-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+;; -------------------------------
 ;; Minimal Themes
 ;; -------------------------------
 (use-package minimal-theme
   :straight (minimal-theme :type git :host github :repo "ashwinjadhav818/emacs-minimal-theme")
   :config
   (load-theme 'minimal-black t))
-
-
-;; -------------------------------
-;; Modus Themes
-;; -------------------------------
-(use-package modus-themes
-  :ensure t
-  )
-
-;; -------------------------------
-;; Nord Theme
-;; -------------------------------
-(use-package nord-theme
-  :ensure t
-  )
 
 (provide 'themes)
 ;;; themes.el ends here
