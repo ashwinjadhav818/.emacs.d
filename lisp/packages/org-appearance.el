@@ -35,6 +35,16 @@
             (org-indent-mode 1)
             (display-line-numbers-mode 1)))
 
+;; Org Appear
+(use-package org-appear
+  :commands (org-appear-mode)
+  :hook (org-mode . org-appear-mode)
+  :init
+  (setq org-hide-emphasis-markers t
+        org-appear-autoemphasis t
+        org-appear-autolinks t
+        org-appear-autosubmarkers t))
+
 (provide 'org-appearance)
 ;;; org-appearance.el ends here
 
