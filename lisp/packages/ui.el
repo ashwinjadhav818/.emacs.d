@@ -244,7 +244,7 @@
 
 
   :bind
-  ("C-<tab>"   . centaur-tabs-forward)
+  ("C-<tab>"   . centaur-tab-forward)
   ("C-S-<tab>" . centaur-tabs-backward))
 
 
@@ -281,5 +281,14 @@
 	(dolist (multiple '("" "double-" "triple-"))
 	  (global-set-key (kbd (concat margin "<" multiple "wheel-up>")) 'mwheel-scroll)
 	  (global-set-key (kbd (concat margin "<" multiple "wheel-down>")) 'mwheel-scroll))))
+
+;; ULTRA-SCROLL
+;; The `ultra-scroll' package enables smooth scroll.
+(use-package ultra-scroll
+  :init
+  (setq scroll-conservatively 1
+        scroll-margin 0)
+  :config
+    (ultra-scroll-mode 1))
 
 (provide 'ui)
