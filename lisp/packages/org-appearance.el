@@ -37,6 +37,7 @@
 
 ;; Org Appear
 (use-package org-appear
+  :ensure t
   :commands (org-appear-mode)
   :hook (org-mode . org-appear-mode)
   :init

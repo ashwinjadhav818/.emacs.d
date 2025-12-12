@@ -1,3 +1,9 @@
+;;; functions.el --- Extra functions -*- lexical-binding: t; -*-
+;;; Commentary:
+;; Here are some extra functions needed
+
+;;; Code:
+
 (defun +org/refile-to-current-file ()
   "Refile the current subtree to the current file."
   (interactive)
@@ -119,3 +125,4 @@
 
 
 (provide 'functions)
+;;; functions.el ends here

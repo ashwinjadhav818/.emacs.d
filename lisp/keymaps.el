@@ -7,9 +7,7 @@
 
 ;;; Code:
 
-;; -------------------------------
 ;; EVIL
-;; -------------------------------
 (use-package evil
   :ensure t
   :straight t
@@ -27,9 +25,7 @@
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-set-leader 'visual (kbd "SPC")))
 
-;; -------------------------------
 ;; EVIL COLLECTION
-;; -------------------------------
 (use-package evil-collection
   :ensure t
   :straight t
@@ -38,9 +34,7 @@
   :config
   (evil-collection-init))
 
-;; -------------------------------
 ;; EVIL SURROUND
-;; -------------------------------
 (use-package evil-surround
   :ensure t
   :straight t
@@ -48,9 +42,7 @@
   :config
   (global-evil-surround-mode 1))
 
-;; -------------------------------
 ;; EVIL MATCHIT
-;; -------------------------------
 (use-package evil-matchit
   :ensure t
   :straight t
@@ -58,9 +50,7 @@
   :config
   (global-evil-matchit-mode 1))
 
-;; -------------------------------
-;; DOOM-STYLE LEADER KEYBINDINGS
-;; -------------------------------
+;; LEADER KEYBINDINGS
 (defun fuzzy-find-files-in-directory ()
   "Fuzzy find files in the current directory."
   (interactive)
@@ -108,9 +98,7 @@
   (evil-define-key 'normal 'global (kbd "<leader> q") 'save-buffers-kill-terminal)
   (evil-define-key 'normal 'global (kbd "<leader> e") 'neotree-toggle)
 
-  ;; -------------------------------
   ;; FILES
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
   (evil-define-key 'normal 'global (kbd "<leader> SPC") 'fuzzy-find-files-in-directory)
   (evil-define-key 'normal 'global (kbd "<leader> f f") 'find-file)
@@ -119,9 +107,7 @@
   (evil-define-key 'normal 'global (kbd "<leader> f d") 'dired)
   (evil-define-key 'normal 'global (kbd "<leader> f p") 'open-personal-config)
 
-  ;; -------------------------------
   ;; BUFFERS
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> b b") 'consult-buffer)
   (evil-define-key 'normal 'global (kbd "<leader> b q") 'kill-current-buffer)
   (evil-define-key 'normal 'global (kbd "<leader> b s") 'save-buffer)
@@ -131,54 +117,38 @@
   (evil-define-key 'normal 'global (kbd "<leader> S-<tab>") 'switch-to-prev-buffer)
 
 
-  ;; -------------------------------
   ;; PROJECTS
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> p p") 'project-switch-project)
   (evil-define-key 'normal 'global (kbd "<leader> p f") 'project-find-file)
   (evil-define-key 'normal 'global (kbd "<leader> p b") 'consult-project-buffer)
   (evil-define-key 'normal 'global (kbd "<leader> p k") 'project-kill-buffers)
 
-  ;; -------------------------------
   ;; SEARCH
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> s f") 'consult-find)
   (evil-define-key 'normal 'global (kbd "<leader> s g") 'consult-ripgrep)
   (evil-define-key 'normal 'global (kbd "<leader> /") 'consult-line)
 
-  ;; -------------------------------
   ;; HELP
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> h f") 'describe-function)
   (evil-define-key 'normal 'global (kbd "<leader> h v") 'describe-variable)
   (evil-define-key 'normal 'global (kbd "<leader> h m") 'describe-mode)
   (evil-define-key 'normal 'global (kbd "<leader> h k") 'describe-key)
 
-  ;; -------------------------------
   ;; TABS / WINDOWS
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "] t") 'tab-next)
   (evil-define-key 'normal 'global (kbd "[ t") 'tab-previous)
 
-  ;; -------------------------------
   ;; DIAGNOSTICS / FLYMAKE
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "] d") 'flymake-goto-next-error)
   (evil-define-key 'normal 'global (kbd "[ d") 'flymake-goto-prev-error)
 
-  ;; -------------------------------
   ;; YANK / EMBARK
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> .") 'embark-act)
 
-  ;; -------------------------------
   ;; UNDO / TREE
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> u") 'undo-tree-visualize)
 
-  ;; -------------------------------
   ;; ORG + ORG-ROAM
-  ;; -------------------------------
   (evil-define-key 'normal 'global (kbd "<leader> o a") 'org-agenda)
   (evil-define-key 'normal 'global (kbd "<leader> o c") 'org-capture)
   (evil-define-key 'normal 'global (kbd "<leader> o l") 'org-store-link)
@@ -188,9 +158,7 @@
   (evil-define-key 'normal 'global (kbd "<leader> o r g") 'org-roam-graph)
   (evil-define-key 'normal 'global (kbd "<leader> o r c") 'org-roam-capture)
 
-  ;; -------------------------------
   ;; ORG LOCAL LEADER (SPC m)
-  ;; -------------------------------
   (with-eval-after-load 'org
     (evil-define-key '(normal visual) org-mode-map
       (kbd "<leader> m x c") 'org-toggle-checkbox
@@ -224,9 +192,7 @@
       (kbd "<leader> m l i") 'org-insert-link
       (kbd "<leader> m l o") 'org-open-at-point)))
 
-;; -------------------------------
 ;; WHICH-KEY DESCRIPTIONS
-;; -------------------------------
 (with-eval-after-load 'which-key
   (which-key-add-key-based-replacements
     "SPC q" "quit"

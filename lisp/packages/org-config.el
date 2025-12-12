@@ -5,9 +5,7 @@
 
 ;;; Code:
 
-;; -------------------------------
 ;; ORG-MODE
-;; -------------------------------
 (straight-use-package 'org)
 
 (use-package org
@@ -52,9 +50,7 @@
   (org-clock-persistence-insinuate))
 
 
-;; -------------------------------
 ;; ORG-ROAM
-;; -------------------------------
 (use-package org-roam
   :ensure t
   :defer t
@@ -72,9 +68,7 @@
   (require 'org-roam-protocol))
 
 
-;; -------------------------------
 ;; ORG-POMODORO
-;; -------------------------------
 (use-package org-pomodoro
   :ensure t
   :config
@@ -82,9 +76,7 @@
   (setq org-pomodoro-short-break-length 10)
   (setq org-pomodoro-long-break-length 30))
 
-;; -------------------------------
 ;; HELPER FUNCTIONS
-;; -------------------------------
 (defun my/org-clock-get-time-string ()
   "Return the currently clocked time as a string (e.g. \"1:23\").
 Returns an empty string if no clock is running."
