@@ -90,7 +90,7 @@
   (interactive)
   (find-file
    (completing-read "Find org file: "
-                    (directory-files-recursively "~/org" "\\.org$"))))
+                    (directory-files-recursively "~/Documents/org" "\\.org$"))))
 
 
 (with-eval-after-load 'evil

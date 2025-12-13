@@ -12,13 +12,13 @@
   :defer t)
 
 (with-eval-after-load 'org
-  (setq org-directory "~/org/")
+  (setq org-directory "~/Documents/org/")
 
   (setq org-agenda-files (list
-                        "~/org/inbox.org"
-                        "~/org/personal.org"
-                        "~/org/school.org"
-                        "~/org/studies.org"))
+                        "~/Documents/org/inbox.org"
+                        "~/Documents/org/personal.org"
+                        "~/Documents/org/school.org"
+                        "~/Documents/org/studies.org"))
   
   ;; TODO keywords
   (setq org-todo-keywords
@@ -27,22 +27,22 @@
   ;; Capture templates
   (setq org-capture-templates
         '(("t" "Todo" entry
-           (file+headline "~/org/inbox.org" "Inbox")
+           (file+headline "~/Documents/org/inbox.org" "Inbox")
            "* TODO %^{Task}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("a" "Appointment" entry
-           (file+headline "~/org/personal.org" "Appointments")
+           (file+headline "~/Documents/org/personal.org" "Appointments")
            "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("p" "Project" entry
-           (file+headline "~/org/projects.org" "Projects")
+           (file+headline "~/Documents/org/projects.org" "Projects")
            "* PROJ %^{Project name}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n** TODO %?")
 		  ("c" "Chore" entry
-           (file+headline "~/org/personal.org" "Chore")
+           (file+headline "~/Documents/org/personal.org" "Chore")
            "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("i" "Idea" entry
-           (file+headline "~/org/ideas.org" "Ideas")
+           (file+headline "~/Documents/org/ideas.org" "Ideas")
            "** IDEA %^{Idea}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("n" "Note" entry
-           (file+headline "~/org/notes.org" "Inbox")
+           (file+headline "~/Documents/org/notes.org" "Inbox")
            "* [%<%Y-%m-%d %a>] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?"
            :prepend t)))
 
@@ -55,7 +55,7 @@
   :ensure t
   :defer t
   :custom
-  (org-roam-directory (file-truename "~/org/notes/"))
+  (org-roam-directory (file-truename "~/Documents/org/notes/"))
   :config
   ;; Display template
   (setq org-roam-node-display-template
