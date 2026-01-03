@@ -3,6 +3,7 @@
 # ----------------------------------------
 .cache/
 auto-save-list/
+eln-cache/
 bookmarks
 projects
 history
