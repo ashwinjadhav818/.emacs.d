@@ -176,13 +176,6 @@
   ("C-<tab>"   . centaur-tab-forward)
   ("C-S-<tab>" . centaur-tabs-backward))
 
-
-;;; CENTERed-CURSOR-MODE
-(use-package centered-cursor-mode
-  :demand
-  :config
-  (global-centered-cursor-mode))
-
 ;;; PERFECT-MARGIN
 (use-package perfect-margin
   :custom
