@@ -90,14 +90,14 @@ Returns an empty string if no clock is running."
 
 (defun my/org-clock-task-and-time ()
   (if (org-clocking-p)
-      (let* ((task (or org-clock-current-task ""))
+      (let* ((task (or (my/org-clock-full-path) ""))
              (short (if (> (length task) 40)
                         (concat (substring task 0 40) "...")
                       task)))
         (substring-no-properties
-         (format "%s | %s"
-                 (my/org-clock-get-time-string)
-				 short)))
+         (format "%s — %s"
+                 short
+                 (my/org-clock-get-time-string))))
     ""))
 
 (provide 'org-config)

@@ -124,5 +124,18 @@
     (message "Saved in LAPBOOK for: %s" title)))
 
 
+(defun my/org-clock-full-path ()
+  (when (org-clocking-p)
+    (with-current-buffer (marker-buffer org-clock-marker)
+      (save-excursion
+        (goto-char org-clock-marker)
+        (let ((path (org-get-outline-path t t)))
+          (mapconcat #'identity
+                     (if (> (length path) 1)
+                         (last path 2)
+                       path)
+                     " -> "))))))
+
+
 (provide 'functions)
 ;;; functions.el ends here
