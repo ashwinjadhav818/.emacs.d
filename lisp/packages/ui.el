@@ -209,6 +209,20 @@
 							 (setq-local window-divider-mode nil))) ;; Clean up the edges
   )
 
+(use-package vterm
+  :ensure t
+  :straight t
+  ) 
+(use-package vterm-toggle
+  :ensure t
+  :straight t
+  :custom
+  (vterm-toggle-scope 'project)
+  (vterm-toggle-fullscreen-p nil)
+  :bind (("C-`" . vterm-toggle)
+         :map vterm-mode-map
+         ("C-`" . vterm-toggle)))
+
 (provide 'ui)
 
 ;;; ui.el ends here
