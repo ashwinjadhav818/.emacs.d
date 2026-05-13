@@ -97,6 +97,22 @@
   (org-insert-time-stamp (current-time) t t))
 
 
+(defun my/toggle-lazygit ()
+  "Toggle a dedicated vterm popup for lazygit in the current directory."
+  (interactive)
+  (let ((buf-name "*lazygit-popup*"))
+    (if (get-buffer-window buf-name)
+        (delete-window (get-buffer-window buf-name))
+      (let ((vterm-buffer (vterm buf-name)))
+        (with-current-buffer vterm-buffer
+          ;; Send the command to vterm
+          (vterm-send-string "lazygit && exit")
+          (vterm-send-return)
+          ;; Optional: hide the mode line for a cleaner look
+          (setq mode-line-format nil))
+        ;; Display it at the bottom
+        (display-buffer-at-bottom vterm-buffer '((window-height . 0.8)))))))
+
 (with-eval-after-load 'evil
   (evil-define-key 'normal 'global (kbd "<leader> e") 'treemacs)
 
@@ -281,7 +297,7 @@
 										; Make `ESC` quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "C-c t") 'org-insert-inactive-timestamp-now)
-
+(global-set-key (kbd "C-c g") 'my/toggle-lazygit)
 
 (provide 'keymaps)
 ;;; keymaps.el ends here
