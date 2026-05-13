@@ -3,11 +3,11 @@
 (require 'json)
 
 (defun xres-get-json (name)
-  "Fetch a color from the Ashwal JSON cache."
+  "Fetch a color from the PYwal16 JSON cache."
   (let* ((json-object-type 'hash-table)
          (json-key-type 'string)
          ;; Path to the generated color file
-         (colors-json (json-read-file "~/.cache/ashwal/colors.json"))
+         (colors-json (json-read-file "~/.cache/wal/colors.json"))
          (colors-dict (gethash "colors" colors-json))
          (special-dict (gethash "special" colors-json)))
     (cond 
@@ -102,13 +102,13 @@
    ;; --- Modeline ---
    `(mode-line
      ((,class (:inverse-video nil :overline nil :underline nil
-               :foreground ,modeline-foreground-active
-               :background ,modeline-background-active :box nil))))
+							  :foreground ,modeline-foreground-active
+							  :background ,modeline-background-active :box nil))))
    `(mode-line-buffer-id ((,class (:weight bold))))
    `(mode-line-inactive
      ((,class (:inverse-video nil :overline nil :underline nil
-               :foreground ,modeline-foreground
-               :background ,modeline-background :box nil))))
+							  :foreground ,modeline-foreground
+							  :background ,modeline-background :box nil))))
 
    ;; --- Tabs ---
    `(tab-bar ((t (:background ,tabbar-background :foreground ,tabbar-foreground :box nil))))
@@ -148,6 +148,6 @@
    `(centaur-tabs-selected-modified ((t (:background ,tabbar-background :foreground ,color-red :box nil))))
    `(centaur-tabs-active-bar-face ((t (:background ,color-yellow :box nil))))
    ) 
-)
+  )
 
 (provide-theme 'xresources)
