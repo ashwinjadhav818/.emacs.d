@@ -21,10 +21,11 @@
   (setq org-directory "~/org/")
 
   (setq org-agenda-files (list
-                        "~/org/inbox.org"
-                        "~/org/personal.org"
-                        "~/org/school.org"
-                        "~/org/studies.org"))
+                          "~/org/inbox.org"
+                          "~/org/personal.org"
+                          "~/org/people.org"
+                          "~/org/school.org"
+                          "~/org/studies.org"))
   
   ;; TODO keywords
   (setq org-todo-keywords
@@ -76,19 +77,19 @@
   
   ;; Capture Templates
   (setq org-roam-capture-templates
-      '(("d" "default" plain "%?"
-         :target (file+head "${slug}.org"
-                            "#+TITLE: ${title}\n#+CREATED: %U\n")
-         :unnarrowed t)))
+		'(("d" "default" plain "%?"
+           :target (file+head "${slug}.org"
+                              "#+TITLE: ${title}\n#+CREATED: %U\n")
+           :unnarrowed t)))
 
   ;; Dailies Configuration
   (setq org-roam-dailies-directory "~/org/daily/")
   (setq org-roam-dailies-capture-templates
-      '(("d" "default" plain
-         (file "templates/dailies.org")
-         :target (file+head "%<%Y-%m-%d>.org"
-                            "#+TITLE: %<%Y-%m-%d>\n")
-         :unnarrowed t))))
+		'(("d" "default" plain
+           (file "templates/dailies.org")
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+TITLE: %<%Y-%m-%d>\n")
+           :unnarrowed t))))
 
 ;; HELPER FUNCTIONS
 (defun my/org-clock-get-time-string ()
