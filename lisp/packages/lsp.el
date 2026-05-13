@@ -179,5 +179,9 @@
              (sh-base-mode    . bash-ts-mode)))
     (add-to-list 'major-mode-remap-alist mapping)))
 
+(use-package janet-ts-mode
+  :vc (:url "https://github.com/sogaiu/janet-ts-mode"
+			:rev :newest))
+
 (provide 'lsp)
 ;;; lsp.el ends here
