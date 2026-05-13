@@ -72,15 +72,15 @@
   (let* ((config-dir "~/.emacs.d")
          ;; Get all .el files, excluding specified directories
          (all-files (directory-files-recursively
-                      config-dir "\\.el$"
-                      nil ;; No depth limit
-                      (lambda (file)
-                        (not (or (string-match-p "/elpa/" file)      ; Ignore elpa/
-                                 (string-match-p "/straight/" file)  ; Ignore straight/
-                                 (string-match-p "/server/" file)    ; Ignore server/
-                                 )))))
-    ;; Fuzzy find and open the file
-    (selected-file (completing-read "Find config file: " all-files)))
+                     config-dir "\\.el$"
+                     nil ;; No depth limit
+                     (lambda (file)
+                       (not (or (string-match-p "/elpa/" file)      ; Ignore elpa/
+                                (string-match-p "/straight/" file)  ; Ignore straight/
+                                (string-match-p "/server/" file)    ; Ignore server/
+                                )))))
+		 ;; Fuzzy find and open the file
+		 (selected-file (completing-read "Find config file: " all-files)))
     (find-file selected-file)))
 
 
@@ -98,7 +98,7 @@
 
 
 (with-eval-after-load 'evil
-  (evil-define-key 'normal 'global (kbd "<leader> e") 'neotree-toggle)
+  (evil-define-key 'normal 'global (kbd "<leader> e") 'treemacs)
 
   ;; FILES
   (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
@@ -278,7 +278,7 @@
 ;; -------------------------------
 ;; EXTRA KEYMAPS
 ;; -------------------------------
-; Make `ESC` quit prompts
+										; Make `ESC` quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "C-c t") 'org-insert-inactive-timestamp-now)
 
