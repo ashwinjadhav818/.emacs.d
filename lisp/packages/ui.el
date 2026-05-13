@@ -85,13 +85,13 @@
   (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
   (dashboard-setup-startup-hook))
 
-  ;; Config
-  (setq dashboard-startup-banner "~/.emacs.d/icons/emacs.svg")    ; custom emacs icon
-  (setq dashboard-image-banner-max-height 200)
-  (setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
-  (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
-  (setq dashboard-center-content t)
-  (setq dashboard-items '((recents   . 5)
+;; Config
+(setq dashboard-startup-banner "~/.emacs.d/icons/emacs.svg")    ; custom emacs icon
+(setq dashboard-image-banner-max-height 200)
+(setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
+(setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+(setq dashboard-center-content t)
+(setq dashboard-items '((recents   . 5)
                         (projects  . 5)
                         (agenda    . 5)))
 
@@ -108,6 +108,14 @@
   :defer t 
   :hook
   (dired-mode . nerd-icons-dired-mode))
+
+(use-package treemacs 
+  :ensure t 
+  :straight t) 
+
+(use-package treemacs-evil
+  :ensure t 
+  :straight t) 
 
 (use-package nerd-icons-completion
   :if ek-use-nerd-fonts
@@ -195,11 +203,11 @@
 
   :config
   (add-hook 'osm-mode-hook (lambda () 
-  (visual-line-mode -1)          ;; Kill the wrapping
-  (display-line-numbers-mode -1) ;; Kill the numbers
-  (setq-local line-spacing nil)  ;; Ensure tiles touch
-  (setq-local window-divider-mode nil))) ;; Clean up the edges
-)
+							 (visual-line-mode -1)          ;; Kill the wrapping
+							 (display-line-numbers-mode -1) ;; Kill the numbers
+							 (setq-local line-spacing nil)  ;; Ensure tiles touch
+							 (setq-local window-divider-mode nil))) ;; Clean up the edges
+  )
 
 (provide 'ui)
 
