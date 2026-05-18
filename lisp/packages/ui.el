@@ -86,11 +86,18 @@
   (dashboard-setup-startup-hook))
 
 ;; Config
-(setq dashboard-startup-banner "~/.emacs.d/icons/emacs.svg")    ; custom emacs icon
+(setq dashboard-startup-banner "~/.emacs.d/icons/freedom.txt")
 (setq dashboard-image-banner-max-height 200)
 (setq dashboard-display-icons-p t)     ; display icons on both GUI and terminal
 (setq dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
 (setq dashboard-center-content t)
+(setq dashboard-startupify-list '(dashboard-insert-banner
+                                  dashboard-insert-navigator
+                                  dashboard-insert-newline
+                                  dashboard-insert-init-info
+                                  dashboard-insert-items
+                                  dashboard-insert-newline
+                                  dashboard-insert-footer))
 (setq dashboard-items '((recents   . 5)
                         (projects  . 5)
                         (agenda    . 5)))
