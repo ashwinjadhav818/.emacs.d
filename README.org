@@ -29,19 +29,32 @@ git clone https://codeberg.org/shadowash8/.emacs.d.git ~/.emacs.d
 
 * File Structure
 #+begin_src text
-.emacs.d/
-├── init.el          ;; Entry point
-└── lisp/            ;; Modular config
-    ├── config.el
-    ├── functions.el
-    ├── keymaps.el
-    ├── packages.el
-    └── packages/
-        ├── editing.el
-        ├── lisp.el
-        ├── org.el
-        ├── themes.el
-        └── ui.el
+.emacs.d
+├── assets
+│   ├── img1.png
+│   ├── img2.png
+│   └── img3.png
+├── icons
+│   ├── emacs.svg
+│   └── freedom.txt
+├── init.el
+├── lisp
+│   ├── config.el
+│   ├── functions.el
+│   ├── keymaps.el
+│   ├── packages
+│   │   ├── editing.el
+│   │   ├── lsp.el
+│   │   ├── org.el
+│   │   ├── themes.el
+│   │   └── ui.el
+│   ├── packages.el
+│   └── wm.el
+├── README.org
+└── themes
+    └── xresources-theme.el
+
+6 directories, 18 files
 #+end_src
 
 * Usage
