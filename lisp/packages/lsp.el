@@ -7,62 +7,24 @@
 ;;; Code:
 
 (use-package lsp-mode
-  :diminish "LSP"
   :ensure t
-  :hook ((lsp-mode . lsp-diagnostics-mode)
-         (lsp-mode . lsp-enable-which-key-integration)
-         ((tsx-ts-mode
-           typescript-ts-mode
-           js-ts-mode) . lsp-deferred))
-  :custom
-  (lsp-keymap-prefix "C-c l")           ; Prefix for LSP actions
-  (lsp-completion-provider :company)    ; Using Company as the provider
-  (lsp-diagnostics-provider :flycheck)
-  (lsp-session-file (locate-user-emacs-file ".lsp-session"))
-  (lsp-log-io nil)                      ; IMPORTANT! Use only for debugging! Drastically affects performance
-  (lsp-keep-workspace-alive nil)        ; Close LSP server if all project buffers are closed
-  (lsp-idle-delay 0.5)                  ; Debounce timer for `after-change-function'
-  ;; core
-  (lsp-enable-xref t)                   ; Use xref to find references
-  (lsp-auto-configure t)                ; Used to decide between current active servers
-  (lsp-eldoc-enable-hover t)            ; Display signature information in the echo area
-  (lsp-enable-dap-auto-configure t)     ; Debug support
-  (lsp-enable-file-watchers nil)
-  (lsp-enable-folding nil)              ; I disable folding since I use origami
-  (lsp-enable-imenu t)
-  (lsp-enable-indentation nil)          ; I use prettier
-  (lsp-enable-links nil)                ; No need since we have `browse-url'
-  (lsp-enable-on-type-formatting nil)   ; Prettier handles this
-  (lsp-enable-suggest-server-download t) ; Useful prompt to download LSP providers
-  (lsp-enable-symbol-highlighting t)     ; Shows usages of symbol at point in the current buffer
-  (lsp-enable-text-document-color nil)   ; This is Treesitter's job
-
-  (lsp-ui-sideline-show-hover nil)      ; Sideline used only for diagnostics
-  (lsp-ui-sideline-diagnostic-max-lines 20) ; 20 lines since typescript errors can be quite big
-  ;; completion
-  (lsp-completion-enable t)
-  (lsp-completion-enable-additional-text-edit t) ; Ex: auto-insert an import for a completion candidate
-  (lsp-enable-snippet t)                         ; Important to provide full JSX completion
-  (lsp-completion-show-kind t)                   ; Optional
-  ;; headerline
-  (lsp-headerline-breadcrumb-enable t)  ; Optional, I like the breadcrumbs
-  (lsp-headerline-breadcrumb-enable-diagnostics nil) ; Don't make them red, too noisy
-  (lsp-headerline-breadcrumb-enable-symbol-numbers nil)
-  (lsp-headerline-breadcrumb-icons-enable nil)
-  ;; modeline
-  (lsp-modeline-code-actions-enable nil) ; Modeline should be relatively clean
-  (lsp-modeline-diagnostics-enable nil)  ; Already supported through `flycheck'
-  (lsp-modeline-workspace-status-enable nil) ; Modeline displays "LSP" when lsp-mode is enabled
-  (lsp-signature-doc-lines 1)                ; Don't raise the echo area. It's distracting
-  (lsp-ui-doc-use-childframe t)              ; Show docs for symbol at point
-  (lsp-eldoc-render-all nil)            ; This would be very useful if it would respect `lsp-signature-doc-lines', currently it's distracting
-  ;; lens
-  (lsp-lens-enable nil)                 ; Optional, I don't need it
-  ;; semantic
-  (lsp-semantic-tokens-enable nil)      ; Related to highlighting, and we defer to treesitter
-
+  :diminish "LSP"
+  :commands (lsp lsp-deferred)
   :init
-  (setq lsp-use-plists t))
+  ;; Automatically start LSP for your specified languages
+  (dolist (hook '(css-mode-hook
+                  css-ts-mode-hook
+                  html-mode-hook
+                  c-mode-hook
+                  c-ts-mode-hook
+                  typescript-ts-mode-hook
+                  tsx-ts-mode-hook
+                  janet-ts-mode-hook
+                  python-mode-hook
+                  python-ts-mode-hook
+                  lisp-mode-hook
+                  emacs-lisp-mode-hook)) ; Added elisp just in case
+    (add-hook hook #'lsp-deferred)))
 
 (use-package lsp-completion
   :no-require
@@ -82,17 +44,6 @@
                 lsp-ui-doc-include-signature t       ; Show signature
                 lsp-ui-doc-position 'at-point))
 
-;; Auto-completion popup
-(use-package company
-  :ensure t
-  :init
-  (add-hook 'after-init-hook 'global-company-mode)
-  :config
-  (setq company-idle-delay 0.0
-        company-minimum-prefix-length 1
-        company-tooltip-align-annotations t
-        company-selection-wrap-around t))
-
 ;; Flycheck for better error highlighting than Flymake
 (use-package flycheck
   :ensure t
@@ -101,14 +52,43 @@
 (use-package apheleia
   :ensure apheleia
   :diminish ""
-  :defines
-  apheleia-formatters
-  apheleia-mode-alist
-  :functions
-  apheleia-global-mode
+  :init
+  ;; Equivalent to: vim.g.disable_autoformat = false
+  (defvar my/disable-autoformat nil
+    "Global flag to toggle auto-formatting on save.")
+
   :config
+  ;; 1. Define and customize formatters with explicit 4-space rules
+  (setf (alist-get 'prettier apheleia-formatters)
+        '("prettier" "--stdin-filepath" filepath "--tab-width" "4"))
   (setf (alist-get 'prettier-json apheleia-formatters)
-        '("prettier" "--stdin-filepath" filepath))
+        '("prettier" "--stdin-filepath" filepath "--tab-width" "4"))
+  (setf (alist-get 'stylua apheleia-formatters)
+        '("stylua" "-"))
+  (setf (alist-get 'yamlfmt apheleia-formatters)
+        '("yamlfmt" "-"))
+
+  ;; 2. Replicate Neovim's formatters_by_ft map
+  (setq apheleia-mode-alist
+        '((lua-mode          . stylua)
+          (lua-ts-mode       . stylua)
+          (js-ts-mode        . prettier)
+          (js2-mode          . prettier)
+          (typescript-ts-mode . prettier)
+          (tsx-ts-mode       . prettier)
+          (yaml-mode         . yamlfmt)
+          (yaml-ts-mode      . yamlfmt)
+          (html-mode         . prettier)
+          (json-ts-mode      . prettier-json)
+          (markdown-mode     . prettier)
+          (css-mode          . prettier)
+          (css-ts-mode       . prettier)))
+
+  ;; 3. Replicate Neovim's disable_autoformat logic check on buffer save
+  (setq apheleia-inhibit-functions
+        (list (lambda () my/disable-autoformat)))
+
+  ;; Turn it on everywhere globally (Equivalent to BufWritePre event)
   (apheleia-global-mode +1))
 
 (use-package lsp-tailwindcss
@@ -137,6 +117,8 @@
          ("\\.json\\'" . json-ts-mode)
          ("\\.Dockerfile\\'" . dockerfile-ts-mode))
   :preface
+
+
   (defun os/setup-install-grammars ()
     "Install Tree-sitter grammars if they are absent."
     (interactive)

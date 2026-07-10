@@ -153,7 +153,9 @@
   (evil-define-key 'normal 'global (kbd "<leader> h k") 'describe-key)
 
   ;; TABS / WINDOWS
-  (evil-define-key 'normal 'global (kbd "<C-tab>") 'tab-next)
+  (evil-define-key 'normal 'global (kbd "<C-tab>") 'centaur-tabs-forward)
+  (evil-define-key 'normal 'global (kbd "C-a") 'centaur-tabs-ace-jump)
+
   (evil-define-key 'normal 'global (kbd "<C-S-iso-lefttab>") 'tab-previous)
   ;; Fallback for some systems if the above doesn't catch Shift-Tab:
   (evil-define-key 'normal 'global (kbd "<C-S-tab>") 'tab-previous)
@@ -225,7 +227,6 @@
 ;; WHICH-KEY DESCRIPTIONS
 (with-eval-after-load 'which-key
   (which-key-add-key-based-replacements
-    "SPC q" "quit"
     "SPC w" "save file"
 
     "SPC f" "files"

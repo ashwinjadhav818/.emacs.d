@@ -25,10 +25,11 @@
 (require 'functions)    ;; helper functions
 (require 'config)       ;; general settings
 (require 'keymaps)      ;; global + leader keymaps
+(require 'completion)
 
 (require 'themes)       ;; theme setup
 (require 'editing)      ;; editing enhancements
-(require 'org)          ;; org 
+(require 'org)          ;; org
 (require 'ui)           ;; UI elements (modeline, dashboard, etc.)
 (require 'lsp)          ;; LSP and coding
 (require 'wm)           ;; emacs as a operating system
@@ -41,10 +42,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("882f29967c553f6557afc466308e253a6235f82df4028b02c0bdcc8a2cf9b407"
-	 "70829f6a709c2b14ae3927897b67ed638af08235464b7cb64b32db78505ae9a3"
-	 default)))
+ '(package-vc-selected-packages
+   '((janet-ts-mode :url "https://github.com/sogaiu/janet-ts-mode"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

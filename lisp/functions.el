@@ -136,9 +136,5 @@
                        path)
                      " -> "))))))
 
-(defun my/disable-line-numbers ()
-  (display-line-numbers-mode -1))
-
-
 (provide 'functions)
 ;;; functions.el ends here

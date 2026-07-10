@@ -26,14 +26,6 @@
                                   (change . "┃")
                                   (unknown . "┆")
                                   (ignored . "i"))))
-
-(use-package rainbow-delimiters
-  :defer t
-  :straight t
-  :ensure t
-  :hook
-  (prog-mode . rainbow-delimiters-mode))
-
 (use-package pulsar
   :defer t
   :straight t
@@ -102,133 +94,45 @@
                         (projects  . 5)
                         (agenda    . 5)))
 
-(use-package nerd-icons
-  :if ek-use-nerd-fonts
-  :ensure t 
-  :straight t
-  :defer t) 
-
-(use-package nerd-icons-dired
-  :if ek-use-nerd-fonts
+(use-package treemacs
   :ensure t
-  :straight t
-  :defer t 
-  :hook
-  (dired-mode . nerd-icons-dired-mode))
-
-(use-package treemacs 
-  :ensure t 
-  :straight t) 
+  :straight t)
 
 (use-package treemacs-evil
-  :ensure t 
-  :straight t) 
-
-(use-package nerd-icons-completion
-  :if ek-use-nerd-fonts
   :ensure t
-  :straight t
-  :after (:all nerd-icons marginalia)
-  :config
-  (nerd-icons-completion-mode)
-  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+  :straight t)
 
-(use-package vertico
+(use-package ghostel
+  :ensure t)
+
+(use-package evil-ghostel
+  :after (ghostel evil)
+  :hook (ghostel-mode . evil-ghostel-mode))
+
+(use-package centaur-tabs
   :ensure t
-  :straight t
-  :hook
-  (after-init . vertico-mode)           ;; Enable vertico after Emacs has initialized.
-  :custom
-  (vertico-count 10)                    ;; Number of candidates to display in the completion list.
-  (vertico-resize nil)                  ;; Disable resizing of the vertico minibuffer.
-  (vertico-cycle nil)                   ;; Do not cycle through candidates when reaching the end of the list.
-  :config
-  (advice-add #'vertico--format-candidate :around
-              (lambda (orig cand prefix suffix index _start)
-                (setq cand (funcall orig cand prefix suffix index _start))
-                (concat
-                 (if (= vertico--index index)
-                     (propertize "» " 'face '(:foreground "#80adf0" :weight bold))
-                   "  ")
-                 cand))))
-
-
-(use-package orderless
-  :ensure t
-  :straight t
-  :defer t                                    ;; Load Orderless on demand.
-  :after vertico                              ;; Ensure Vertico is loaded before Orderless.
+  :demand t
   :init
-  (setq completion-styles '(orderless basic)  ;; Set the completion styles.
-        completion-category-defaults nil      ;; Clear default category settings.
-        completion-category-overrides '((file (styles partial-completion))))) ;; Customize file completion styles.
-
-
-(use-package marginalia
-  :ensure t
-  :straight t
-  :hook
-  (after-init . marginalia-mode))
-
-
-(use-package consult
-  :ensure t
-  :straight t
-  :defer t
-  :init
-  ;; Enhance register preview with thin lines and no mode line.
-  (advice-add #'register-preview :override #'consult-register-window)
-
-  ;; Use Consult for xref locations with a preview feature.
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref))
-
-
-(use-package embark
-  :ensure t
-  :straight t
-  :defer t)
-
-
-(use-package embark-consult
-  :ensure t
-  :straight t
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode)) ;; Enable preview in Embark collect mode.
-
-(use-package xdg-launcher
-  :straight '(xdg-launcher :host github :repo "emacs-exwm/xdg-launcher"))
-
-(use-package osm
-  :bind ("C-c k" . osm-prefix-map) ;; Alternatives: `osm-home' or `osm'
-
-  :custom
-  (osm-default-server 'default) ;; Configure the tile server
-  (osm-default-zoom 15)         ;; Default zoom level
-  (osm-copyright t)             ;; Display the copyright information
-  (osm-home (list 0 0 3))       ;; Home, configure `calendar-latitude/longitude' instead
-
+  (setq centaur-tabs-set-icons t
+        centaur-tabs-gray-out-icons 'buffer
+        centaur-tabs-set-bar 'left
+        centaur-tabs-set-modified-marker t
+        centaur-tabs-close-button "✕"
+        centaur-tabs-modified-marker "•"
+        centaur-tabs-icon-type 'nerd-icons
+        centaur-tabs-cycle-scope 'tabs
+        centaur-tabs-style "bar"
+        centaur-tabs-height 24)
   :config
-  (add-hook 'osm-mode-hook (lambda () 
-							 (visual-line-mode -1)          ;; Kill the wrapping
-							 (display-line-numbers-mode -1) ;; Kill the numbers
-							 (setq-local line-spacing nil)  ;; Ensure tiles touch
-							 (setq-local window-divider-mode nil))) ;; Clean up the edges
-  )
+  ;; Disable tabs in transient/popup-like buffers
+  (dolist (hook '(dashboard-mode-hook
+                  calendar-mode-hook
+                  helpful-mode-hook
+                  help-mode-hook))
+    (add-hook hook #'centaur-tabs-local-mode))
 
-(use-package vterm
-  :ensure t
-  :straight t
-  ) 
-(use-package vterm-toggle
-  :ensure t
-  :straight t
-  :custom
-  (vterm-toggle-scope 'project)
-  (vterm-toggle-fullscreen-p nil)
-  :bind (("C-`" . vterm-toggle)
-         :map vterm-mode-map
-         ("C-`" . vterm-toggle)))
+  (centaur-tabs-mode 1))
+
 
 (provide 'ui)
 
