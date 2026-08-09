@@ -42,6 +42,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("cee8b387a39aeb2a749b02950ea46d6844b8d3786ac5da8623fdbe569c934aae"
+     "723cb1022e81737895b010f315c08dccdfb4cb9b4d86256a4fb222c4a923a698"
+     "b8f9f3d4d3c78b1959be9e40769475890c5cda484e052395a5001f50dbe28016" default))
  '(package-vc-selected-packages
    '((janet-ts-mode :url "https://github.com/sogaiu/janet-ts-mode"))))
 (custom-set-faces
