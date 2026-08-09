@@ -134,6 +134,9 @@
   (centaur-tabs-mode 1))
 
 
+(use-package magit
+  :ensure t)
+
 (provide 'ui)
 
 ;;; ui.el ends here

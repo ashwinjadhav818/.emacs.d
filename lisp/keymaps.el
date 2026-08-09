@@ -55,7 +55,7 @@
   "Fuzzy find files in the current directory."
   (interactive)
   (find-file
-   (completing-read "Find org file: "
+   (completing-read "Find file: "
                     (directory-files-recursively "." ".*"))))
 
 (defun grep-current-directory ()
@@ -119,8 +119,7 @@
   ;; FILES
   (evil-define-key 'normal 'global (kbd "<leader> w") 'save-buffer)
   (evil-define-key 'normal 'global (kbd "<leader> SPC") 'fuzzy-find-files-in-directory)
-  (evil-define-key 'normal 'global (kbd "<leader> f f") 'find-file)
-  (evil-define-key 'normal 'global (kbd "<leader> f g") 'grep-current-directory)
+  (evil-define-key 'normal 'global (kbd "<leader> f f") 'project-find-file)
   (evil-define-key 'normal 'global (kbd "<leader> f r") 'recentf-open-files)
   (evil-define-key 'normal 'global (kbd "<leader> f d") 'dired)
   (evil-define-key 'normal 'global (kbd "<leader> f p") 'open-personal-config)
@@ -145,6 +144,11 @@
   (evil-define-key 'normal 'global (kbd "<leader> s f") 'consult-find)
   (evil-define-key 'normal 'global (kbd "<leader> s g") 'consult-ripgrep)
   (evil-define-key 'normal 'global (kbd "<leader> /") 'consult-line)
+
+  ;; GIT
+  (evil-define-key 'normal 'global (kbd "<leader> g g") 'magit)
+  (evil-define-key 'normal 'global (kbd "<leader> g l") 'magit-log)
+  (evil-define-key 'normal 'global (kbd "<leader> g d") 'magit-diff)
 
   ;; HELP
   (evil-define-key 'normal 'global (kbd "<leader> h f") 'describe-function)
@@ -224,73 +228,73 @@
       (kbd "<leader> m l i") 'org-insert-link
       (kbd "<leader> m l o") 'org-open-at-point)))
 
-;; WHICH-KEY DESCRIPTIONS
-(with-eval-after-load 'which-key
-  (which-key-add-key-based-replacements
-    "SPC w" "save file"
+  ;; WHICH-KEY DESCRIPTIONS
+  (with-eval-after-load 'which-key
+    (which-key-add-key-based-replacements
+      "SPC w" "save file"
 
-    "SPC f" "files"
-    "SPC f f" "find file"
-    "SPC f r" "recent files"
-    "SPC f d" "dired"
-    "SPC f p" "personal config"
+      "SPC f" "files"
+      "SPC f f" "find file"
+      "SPC f r" "recent files"
+      "SPC f d" "dired"
+      "SPC f c" "personal config"
 
-    "SPC b" "buffers"
-    "SPC b b" "list buffers"
-    "SPC b d" "kill buffer"
-    "SPC b s" "save buffer"
-    "SPC b c" "collapse outline"
-    "SPC b e" "expand outline"
+      "SPC b" "buffers"
+      "SPC b b" "list buffers"
+      "SPC b d" "kill buffer"
+      "SPC b s" "save buffer"
+      "SPC b c" "collapse outline"
+      "SPC b e" "expand outline"
 
-    "SPC p" "projects"
-    "SPC p p" "switch project"
-    "SPC p f" "find file in project"
-    "SPC p b" "project buffers"
-    "SPC p k" "kill project buffers"
+      "SPC p" "projects"
+      "SPC p p" "switch project"
+      "SPC p f" "find file in project"
+      "SPC p b" "project buffers"
+      "SPC p k" "kill project buffers"
 
-    "SPC s" "search"
-    "SPC s f" "find file"
-    "SPC s g" "grep"
-    "SPC s r" "ripgrep"
-    "SPC /" "search line"
+      "SPC s" "search"
+      "SPC s f" "find file"
+      "SPC s g" "grep"
+      "SPC s r" "ripgrep"
+      "SPC /" "search line"
 
-    "SPC g" "git"
-    "SPC g g" "magit status"
-    "SPC g l" "magit log"
-    "SPC g d" "magit diff"
+      "SPC g" "git"
+      "SPC g g" "magit status"
+      "SPC g l" "magit log"
+      "SPC g d" "magit diff"
 
-    "SPC h" "help"
-    "SPC h f" "describe function"
-    "SPC h v" "describe variable"
-    "SPC h m" "describe mode"
-    "SPC h k" "describe key"
+      "SPC h" "help"
+      "SPC h f" "describe function"
+      "SPC h v" "describe variable"
+      "SPC h m" "describe mode"
+      "SPC h k" "describe key"
 
-    "SPC u" "undo tree"
+      "SPC u" "undo tree"
 
-    "SPC x" "misc commands"
-    "SPC x x" "flymake"
+      "SPC x" "misc commands"
+      "SPC x x" "flymake"
 
-    "SPC o" "org"
-    "SPC o a" "agenda"
-    "SPC o c" "capture"
-    "SPC o l" "store link"
-    "SPC o f" "open file"
-    "SPC o r" "org-roam"
-    "SPC o r f" "find node"
-    "SPC o r i" "insert node"
-    "SPC o r g" "graph"
-    "SPC o r c" "capture node"
-    "SPC o r d t" "dailies today"
-    "SPC o r d c" "dailies capture"
+      "SPC o" "org"
+      "SPC o a" "agenda"
+      "SPC o c" "capture"
+      "SPC o l" "store link"
+      "SPC o f" "open file"
+      "SPC o r" "org-roam"
+      "SPC o r f" "find node"
+      "SPC o r i" "insert node"
+      "SPC o r g" "graph"
+      "SPC o r c" "capture node"
+      "SPC o r d t" "dailies today"
+      "SPC o r d c" "dailies capture"
 
-    ;; Local leader (SPC m)
-    "SPC m" "local-leader"
-    "SPC m t" "todo"
-    "SPC m p" "priority"
-    "SPC m r" "refile"
-    "SPC m c" "capture/clock"
-    "SPC m s" "subtree"
-    "SPC m l" "links"))
+      ;; Local leader (SPC m)
+      "SPC m" "local-leader"
+      "SPC m t" "todo"
+      "SPC m p" "priority"
+      "SPC m r" "refile"
+      "SPC m c" "capture/clock"
+      "SPC m s" "subtree"
+      "SPC m l" "links"))
 
 ;; -------------------------------
 ;; EXTRA KEYMAPS

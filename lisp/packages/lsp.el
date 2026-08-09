@@ -82,7 +82,11 @@
           (json-ts-mode      . prettier-json)
           (markdown-mode     . prettier)
           (css-mode          . prettier)
-          (css-ts-mode       . prettier)))
+          (css-ts-mode       . prettier)
+          (c-mode             . clang-format)
+          (c-ts-mode          . clang-format)
+          (c++-mode           . clang-format)
+          (c++-ts-mode        . clang-format)))
 
   ;; 3. Replicate Neovim's disable_autoformat logic check on buffer save
   (setq apheleia-inhibit-functions
@@ -164,6 +168,15 @@
 (use-package janet-ts-mode
   :vc (:url "https://github.com/sogaiu/janet-ts-mode"
 			:rev :newest))
+(with-eval-after-load 'lsp-mode
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("janet-lsp"))
+                    :major-modes '(janet-mode janet-ts-mode)
+                    :server-id 'janet-lsp)))
+
+;; Optional: Automatically start lsp-mode when opening Janet files
+(add-hook 'janet-ts-mode-hook #'lsp-deferred)
+(add-hook 'janet-mode-hook #'lsp-deferred)
 
 (provide 'lsp)
 ;;; lsp.el ends here
