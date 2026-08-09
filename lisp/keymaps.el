@@ -89,7 +89,7 @@
   (interactive)
   (find-file
    (completing-read "Find org file: "
-                    (directory-files-recursively "~/org" "\\.org$"))))
+                    (directory-files-recursively "~/Org" "\\.org$"))))
 
 (defun org-insert-inactive-timestamp-now ()
   "Insert an inactive timestamp with the current time."

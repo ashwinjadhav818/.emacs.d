@@ -15,18 +15,20 @@
   :ensure t
   :straight t
   :init
-  (setq org-directory "~/org"))
+  (setq org-directory "~/Org"))
 
 (with-eval-after-load 'org
-  (setq org-directory "~/org/")
+  (setq org-directory "~/Org/")
 
-  (setq org-agenda-files (list
-                          "~/org/inbox.org"
-                          "~/org/personal.org"
-                          "~/org/people.org"
-                          "~/org/school.org"
-                          "~/org/studies.org"))
-  
+  (setq org-agenda-files
+        (append
+         '("~/Org/inbox.org"
+           "~/Org/personal.org"
+           "~/Org/people.org"
+           "~/Org/school.org"
+           "~/Org/studies.org")
+         (directory-files-recursively "~/Org/projects" "\\.org$")))
+
   ;; TODO keywords
   (setq org-todo-keywords
         '((sequence "TODO(t)" "WORKING(w!)" "WAIT(W@)" "|" "DONE(d!)" "CANC(c@)")))
@@ -34,22 +36,22 @@
   ;; Capture templates
   (setq org-capture-templates
         '(("t" "Todo" entry
-           (file+headline "~/org/inbox.org" "Inbox")
+           (file+headline "~/Org/inbox.org" "Inbox")
            "* TODO %^{Task}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("a" "Appointment" entry
-           (file+headline "~/org/personal.org" "Appointments")
+           (file+headline "~/Org/personal.org" "Appointments")
            "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("p" "Project" entry
-           (file+headline "~/org/projects.org" "Projects")
+           (file+headline "~/Org/projects.org" "Projects")
            "* PROJ %^{Project name}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n** TODO %?")
 		  ("c" "Chore" entry
-           (file+headline "~/org/personal.org" "Chore")
+           (file+headline "~/Org/personal.org" "Chore")
            "* %^{Event}\n%^{SCHEDULED}T\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("i" "Idea" entry
-           (file+headline "~/org/ideas.org" "Ideas")
+           (file+headline "~/Org/ideas.org" "Ideas")
            "** IDEA %^{Idea}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?")
           ("n" "Note" entry
-           (file+headline "~/org/notes.org" "Inbox")
+           (file+headline "~/Org/notes.org" "Inbox")
            "* [%<%Y-%m-%d %a>] %^{Title}\n:PROPERTIES:\n:CREATED: %U\n:CAPTURED: %a\n:END:\n%?"
            :prepend t)))
 
@@ -63,7 +65,7 @@
   :ensure t
   :defer t
   :custom
-  (org-roam-directory (file-truename "~/org/notes/"))
+  (org-roam-directory (file-truename "~/Org/notes/"))
   :config
   ;; Display template
   (setq org-roam-node-display-template
@@ -74,7 +76,7 @@
 
   ;; Optional: org-roam-protocol
   (require 'org-roam-protocol)
-  
+
   ;; Capture Templates
   (setq org-roam-capture-templates
 		'(("d" "default" plain "%?"
@@ -83,7 +85,7 @@
            :unnarrowed t)))
 
   ;; Dailies Configuration
-  (setq org-roam-dailies-directory "~/org/daily/")
+  (setq org-roam-dailies-directory "~/Org/daily/")
   (setq org-roam-dailies-capture-templates
 		'(("d" "default" plain
            (file "templates/dailies.org")
