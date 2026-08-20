@@ -104,4 +104,25 @@
   :ensure t)
 
 (provide 'editing)
+
+;; PDF
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  (define-key pdf-view-mode-map (kbd "C-s") 'isearch-forward))
+
+(use-package org-noter
+  :ensure t
+  :after org
+  :config
+  (org-noter-enable-org-roam-integration)
+  (setq org-noter-highlight-selected-text t)
+  (setq org-noter-max-short-selected-text-length 80)
+  (setq org-noter-always-create-frame nil)
+  (setq org-noter-kill-frame-at-session-end t)
+  (setq org-noter-auto-save-last-location t)
+  (setq org-noter-notes-window-location 'horizontal-split))
+
 ;;; editing.el ends here
