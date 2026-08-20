@@ -1,12 +1,5 @@
 ;;; ashwal-theme.el --- Enhanced Ashwal via JSON -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2026
-
-;; Author: Enhanced Integration
-;; Version: 2.1
-;; Package-Requires: ((emacs "24.1"))
-;; Keywords: faces
-
 ;;; Commentary:
 
 ;; An enhanced theme pulling a vibrant color scheme dynamically from Ashwal's JSON cache.
@@ -38,43 +31,43 @@
        (cursor-bg  (xres-get-json "cursor"))
 
        ;; ANSI/Base Slots
-       (term0      (xres-get-json "color0"))  ; Deep Base
-       (term1      (xres-get-json "color1"))  ; Dark Blue-Gray
-       (term2      (xres-get-json "color2"))  ; Muted Teal-Blue
-       (term3      (xres-get-json "color3"))  ; Dark Purple
-       (term4      (xres-get-json "color4"))  ; Mid Blue
-       (term5      (xres-get-json "color5"))  ; Muted Blue
-       (term6      (xres-get-json "color6"))  ; Slate Cyan
-       (term7      (xres-get-json "color7"))  ; Light Gray
-       (term8      (xres-get-json "color8"))  ; Bright Gray / Comments
-       (term9      (xres-get-json "color9"))  ; Bright Blue-Purple
-       (term10     (xres-get-json "color10")) ; Vibrant Blue
-       (term11     (xres-get-json "color11")) ; Bright Indigo
-       (term12     (xres-get-json "color12")) ; Sky Blue
-       (term13     (xres-get-json "color13")) ; Royal Blue
-       (term14     (xres-get-json "color14")) ; Ice Cyan
-       (term15     (xres-get-json "color15")) ; Crisp Foreground
+       (term0      (xres-get-json "color0"))
+       (term1      (xres-get-json "color1"))
+       (term2      (xres-get-json "color2"))
+       (term3      (xres-get-json "color3"))
+       (term4      (xres-get-json "color4"))
+       (term5      (xres-get-json "color5"))
+       (term6      (xres-get-json "color6"))
+       (term7      (xres-get-json "color7"))
+       (term8      (xres-get-json "color8"))
+       (term9      (xres-get-json "color9"))
+       (term10     (xres-get-json "color10"))
+       (term11     (xres-get-json "color11"))
+       (term12     (xres-get-json "color12"))
+       (term13     (xres-get-json "color13"))
+       (term14     (xres-get-json "color14"))
+       (term15     (xres-get-json "color15"))
 
        ;; --- Shifted Mapping Roles to boost visibility ---
-       (ash-red           term9)   ; Swapped to brighter blue-purple for syntax
-       (ash-red-alt       term11)  ; High-vis accent
-       (ash-green         term10)  ; Using the brighter variant for strings/success
-       (ash-green-bright  term14)  ; Clear pop accent
-       (ash-yellow        term12)  ; Bright sky blue for keywords/warnings
+       (ash-red           term9)
+       (ash-red-alt       term11)
+       (ash-green         term10)
+       (ash-green-bright  term14)
+       (ash-yellow        term12)
        (ash-yellow-bright term14)
-       (ash-blue          term4)   ; Standard Blue
-       (ash-magenta       term13)  ; High contrast mid-tone
+       (ash-blue          term4)
+       (ash-magenta       term13)
        (ash-cyan          term6)
-       (ash-cyan-bright   term14)  ; Clear accent
+       (ash-cyan-bright   term14)
        (ash-gray          term8)
        (ash-teal          term14)
 
-       ;; UI Context Containers (Lifted using mid-tones to step out of total black)
+       ;; UI Context Containers
        (border             term1)
-       (region-bg          term4)   ; Switched from dark color2 to a much more visible term4
-       (surface            term1)   ; Pop out UI panels away from pure #090b0e
-       (surface-container  term2)   ; Delineated containers
-       (surface-low        term1)   ; Block elements
+       (region-bg          term1)
+       (surface            term0)
+       (surface-container  term1)
+       (surface-low        term1)
        (outline-variant    term5))
 
   (custom-theme-set-faces
@@ -93,7 +86,7 @@
    `(link ((,class (:foreground ,ash-cyan-bright :underline t))))
    `(link-visited ((,class (:foreground ,ash-magenta :underline t))))
    `(success ((,class (:foreground ,ash-green))))
-   `(warning ((,class (:foreground ,ash-yellow))))
+   `(warning ((,class (:foreground ,ash-red))))
    `(error ((,class (:foreground ,term12)))) ; Swapped for visibility
    `(match ((,class (:background ,ash-yellow :foreground ,bg :weight bold))))
 
@@ -106,7 +99,7 @@
    ;; --- Syntax Highlighting (Font-lock) ---
    `(font-lock-builtin-face ((,class (:foreground ,ash-cyan-bright :weight bold))))
    `(font-lock-comment-face ((,class (:foreground ,ash-gray :slant italic))))
-   `(font-lock-comment-delimiter-face ((,class (:foreground ,outline-variant))))
+   `(font-lock-comment-delimiter-face ((,class (:foreground ,ash-gray))))
    `(font-lock-constant-face ((,class (:foreground ,ash-blue :weight bold))))
    `(font-lock-doc-face ((,class (:foreground ,term7 :slant italic))))
    `(font-lock-function-name-face ((,class (:foreground ,ash-cyan-bright :weight bold))))
@@ -114,7 +107,7 @@
    `(font-lock-string-face ((,class (:foreground ,ash-green))))
    `(font-lock-type-face ((,class (:foreground ,term15 :slant italic))))
    `(font-lock-variable-name-face ((,class (:foreground ,fg))))
-   `(font-lock-warning-face ((,class (:foreground ,ash-yellow :weight bold))))
+   `(font-lock-warning-face ((,class (:foreground ,ash-red :weight bold))))
    `(font-lock-preprocessor-face ((,class (:foreground ,ash-teal))))
    `(font-lock-negation-char-face ((,class (:foreground ,ash-cyan-bright))))
 
@@ -154,9 +147,9 @@
    `(org-special-keyword ((,class (:foreground ,ash-gray :slant italic))))
    `(org-tag ((,class (:background ,surface-low :foreground ,fg))))
    `(org-block ((,class (:background ,surface-low :extend t :inherit fixed-pitch))))
-   `(org-block-begin-line ((,class (:background ,surface-low :foreground ,ash-teal :extend t :slant italic :inherit fixed-pitch))))
-   `(org-block-end-line ((,class (:background ,surface-low :foreground ,ash-teal :extend t :slant italic :inherit fixed-pitch))))
-   `(org-code ((,class (:background ,surface-low :foreground ,ash-yellow-bright :inherit fixed-pitch))))
+   `(org-block-begin-line ((,class (:background ,bg :foreground ,ash-teal :extend t :slant italic :inherit fixed-pitch))))
+   `(org-block-end-line ((,class (:background ,bg :foreground ,ash-teal :extend t :slant italic :inherit fixed-pitch))))
+   `(org-code ((,class (:background ,bg :foreground ,ash-yellow-bright :inherit fixed-pitch))))
    `(org-verbatim ((,class (:background ,surface-low :foreground ,ash-cyan :inherit fixed-pitch))))
 
    ;; --- Magit ---
